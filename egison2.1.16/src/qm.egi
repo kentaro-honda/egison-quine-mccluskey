@@ -1,0 +1,144 @@
+(define $List+
+  (lambda [$a]
+    (type
+      {[$var-match (lambda [$tgt] {tgt})]
+       [$inductive-match
+        (destructor
+          {[nil []
+            {[{} {[]}]
+             [_ {}]}]
+           [cons [a (List+ a)]
+            {[{$x .$xs} {[x xs]}]
+             [_ {}]}]
+           [snoc [a (List+ a)]
+            {[{.$xs $x} {[x xs]}]
+             [_ {}]}]
+           [join [(List+ a) (List+ a)]
+            {[$tgt (letrec {[$loop-fn
+                             (lambda [$ts]
+                               (match ts (List a)
+                                 {[<nil> {[{} {}]}]
+                                  [<cons $x $xs>
+                                   {[{} ts]
+                                    @(map (lambda [$as $bs] [{x @as} bs])
+                                          (loop-fn xs))}]}))]}
+                     (loop-fn tgt))]}]
+           [nioj [(List+ a) (List+ a)]
+            {[$tgt (letrec {[$loop-fn
+                             (lambda [$ts]
+                               (match ts (List+ a)
+                                 {[<nil> {[{} {}]}]
+                                  [<snoc $x $xs>
+                                   {[{} ts]
+                                    @(map (lambda [$as $bs] [{@as x} bs])
+                                          (loop-fn xs))}]}))]}
+                     (loop-fn tgt))]}]})]
+       [$= (lambda [$val $tgt]
+             (match [val tgt] [(List+ a) (List+ a)]
+               {[[<nil> <nil>] #t]
+                [[<cons $x $xs> <cons ,x ,xs>] #t]
+                [[_ _] #f]}))]
+       [$equal? (lambda [$val $tgt]
+                   (match [val tgt] [(List+ a) (List+ a)]
+                     {[[$x ,x] #t]
+                      [[<cons $x $xs> <cons (? equal? x) (? equal? xs)>] #t]
+                      [[_ _] #f]}))]})))
+
+(define $Bool+
+  (type
+    {[$var-match (lambda [$tgt] {tgt})]
+     [$inductive-match
+      (destructor
+        {[true []
+          {[#t {[]}]
+           [_ {}]}]
+         [false []
+          {[#f {[]}]
+           [_ {}]}]
+         [dontcare []
+          {[<d> {[]}]
+           [_ {}]}]})]
+     [$=
+      (lambda [$val $tgt]
+        (match [val tgt] [Bool+ Bool+]
+          {[[<true> <true>] #t]
+           [[<false> <false>] #t]
+           [[<dontcare> <dontcare>] #t]
+           [[_ _] #f]}))]
+     [$equal?
+      (lambda [$val $tgt]
+        (match [val tgt] [Bool+ Bool+]
+          {[[$x ,x] #t]
+           [[_ <dontcare>] #t]
+           [[_ _] #f]}))]}))
+
+(define $findPrimeImplicant
+  (lambda [$as]
+    (let {[$rs
+           ((unique (List Bool+))
+                   (match-all as (Multiset (List Bool+))
+                     [<cons <join $xs <cons <false> $zs>> <cons ,{@xs #t @zs} _>> {@xs <d> @zs}]))]}
+      (match rs (List Something)
+		{[<nil> as]
+		 [_ {@(findPrimeImplicant rs) @(remove-collection-equal? as rs)}]}))))
+
+(define $remove-all-equal?
+  (lambda [$xs $x]
+    ((remove-collection (List+ Bool+)) xs (filter (lambda [$y] ((type-ref (List+ Bool+) equal?) y x)) xs))))
+
+(define $remove-collection-equal?
+  (lambda [$xs $ys]
+    (match ys (List Something)
+      {[<nil> xs]
+       [<cons $y $rs> (remove-collection-equal? (remove-all-equal? xs y) rs)]})))
+
+(define $findMinimumCover
+  (lambda [$aSet $bSet $upper $uSet]
+    (match [aSet bSet] [(Multiset (List+ Bool+)) (Multiset (List+ Bool+))]
+      {[(& [_ <join (& ^(loop $l $i (between 2 upper) <cons _ l> <cons _ _>) $xs) $ys>]
+           ^[<cons $z _> <join ^<cons (? equal? z) _> ,ys>])
+        (findMinimumCover aSet bSet (size xs) xs)]
+       [_ uSet]})))
+
+(define $findMinimization
+  (lambda [$aSet $bSet]
+    (match [aSet bSet] [(Multiset (List+ Bool+)) (Multiset (List+ Bool+))]
+      {[[<nil> _] {}]
+       [[<cons $x $xs> <cons (& (? equal? x) $y) (& ^<cons (? equal? x) _> $zs)>]
+        {y @(findMinimization (remove-all-equal? xs y) zs)}]
+       [_ (findMinimumCover aSet bSet (size bSet) bSet)]})))
+
+(define $QM
+  (lambda [$aSet]
+    (findMinimization aSet (findPrimeImplicant aSet))))
+
+(define $main
+  (lambda [$: $argv]
+    (match argv (List Something)
+      {[<cons $i <cons $o _>>
+        (do {[[$: $p] (open-input-file : i)]
+             [[$: $val] (read-from-port : p)]
+             [$: (close-input-port : p)]
+             [[$: $p] (open-output-file : o)]
+             [$: (write-to-port : p (QM val))]
+             [$: (close-output-port : p)]}
+            :)]
+       [<cons $i _>
+        (do {[[$: $p] (open-input-file : i)]
+             [[$: $val] (read-from-port : p)]
+             [$: (close-input-port : p)]
+             [$: (write-string : "output : ")]
+             [$: (flush :)]
+             [$: (write : (QM val))]
+             [$: (write-char : '\n')]
+             [$: (flush :)]}
+            :)]
+        [_
+         (do {[$: (write-string : "input : ")]
+              [$: (flush :)]
+              [[$: $val] (read : )]
+              [$: (write-string : "output : ")]
+              [$: (flush :)]
+              [$: (write : (QM val))]
+              [$: (write-char : '\n')]}
+             :)]})))

@@ -1,2 +1,15 @@
 # egison-quine-mccluskey
-Edison Implementation of Quine-McCluskey method
+Egison Implementation of Quine-McCluskey method
+
+## Contents
+
+* `egison2.1.16/`
+  Egison2.1.16 implementation
+  * `src/`
+  * `docs/`
+    * `qm.pdf`
+      Slides in Japanese (originally created for the 1st Egison Workshop)
+
+## Requisites
+
+* [egison](https://github.com/egison/egison)

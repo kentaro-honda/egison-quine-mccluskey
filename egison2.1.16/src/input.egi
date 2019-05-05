@@ -1,0 +1,436 @@
+(define $input
+  {
+    {#f #t #f #f}
+    {#t #f #f #f}
+    {#t #f #f #t}
+    {#t #f #t #f}
+    {#t #f #t #t}
+    {#t #t #f #f}
+    {#t #t #t #f}
+    {#t #t #t #t}
+  }
+)
+
+(define $l0
+  {
+    {#f #f #f #t}
+    {#f #t #f #f}
+    {#t #f #f #f}
+    {#t #f #t #f}
+    {#t #f #t #t}
+    {#t #f #f #t}
+    {#f #t #t #f}
+    {#f #t #t #t}
+    {#t #t #t #t}
+  }
+)
+
+(define $l1
+  {
+    {#f #f #f #f #f #t}
+    {#f #f #f #f #t #t}
+    {#f #f #f #t #f #t}
+    {#f #f #f #t #t #t}
+    {#f #f #t #f #f #f}
+    {#f #f #t #f #t #f}
+    {#f #f #t #t #f #f}
+    {#f #f #t #t #t #f}
+    {#f #t #f #f #f #t}
+    {#f #t #f #f #t #t}
+    {#f #t #f #t #f #t}
+    {#f #t #f #t #t #t}
+    {#f #t #t #f #f #f}
+    {#f #t #t #f #t #f}
+    {#f #t #t #t #f #f}
+    {#f #t #t #t #t #f}
+    {#t #f #f #f #f #t}
+    {#t #f #f #f #t #t}
+    {#t #f #f #t #f #t}
+    {#t #f #f #t #t #t}
+    {#t #f #t #f #f #f}
+    {#t #f #t #f #t #f}
+    {#t #f #t #t #f #f}
+    {#t #f #t #t #t #f}
+    {#t #t #f #f #f #t}
+    {#t #t #f #f #t #t}
+    {#t #t #f #t #f #t}
+    {#t #t #f #t #t #t}
+    {#t #t #t #f #f #f}
+    {#t #t #t #f #t #f}
+    {#t #t #t #t #f #f}
+    {#t #t #t #t #t #f}
+  }
+)
+
+(define $l2
+  {
+    {#f #f #f #f #t #f}
+    {#f #f #f #f #t #t}
+    {#f #f #f #t #t #f}
+    {#f #f #f #t #t #t}
+    {#f #f #t #f #f #t}
+    {#f #f #t #f #t #f}
+    {#f #f #t #t #f #t}
+    {#f #f #t #t #t #f}
+    {#f #t #f #f #f #f}
+    {#f #t #f #f #f #t}
+    {#f #t #f #t #f #f}
+    {#f #t #f #t #f #t}
+    {#f #t #t #f #f #f}
+    {#f #t #t #f #t #t}
+    {#f #t #t #t #f #f}
+    {#f #t #t #t #t #t}
+    {#t #f #f #f #t #f}
+    {#t #f #f #f #t #t}
+    {#t #f #f #t #t #f}
+    {#t #f #f #t #t #t}
+    {#t #f #t #f #f #t}
+    {#t #f #t #f #t #f}
+    {#t #f #t #t #f #t}
+    {#t #f #t #t #t #f}
+    {#t #t #f #f #f #f}
+    {#t #t #f #f #f #t}
+    {#t #t #f #t #f #f}
+    {#t #t #f #t #f #t}
+    {#t #t #t #f #f #f}
+    {#t #t #t #f #t #t}
+    {#t #t #t #t #f #f}
+    {#t #t #t #t #t #t}
+  }
+)
+
+(define $l3
+  {
+    {#f #f #f #t #f #f}
+    {#f #f #f #t #f #t}
+    {#f #f #f #t #t #f}
+    {#f #f #f #t #t #t}
+    {#f #f #t #f #t #t}
+    {#f #f #t #t #f #f}
+    {#f #f #t #t #f #t}
+    {#f #f #t #t #t #f}
+    {#f #t #f #f #t #f}
+    {#f #t #f #f #t #t}
+    {#f #t #f #t #f #f}
+    {#f #t #f #t #f #t}
+    {#f #t #t #f #f #t}
+    {#f #t #t #f #t #f}
+    {#f #t #t #f #t #t}
+    {#f #t #t #t #f #f}
+    {#t #f #f #f #f #f}
+    {#t #f #f #f #f #t}
+    {#t #f #f #f #t #f}
+    {#t #f #f #f #t #t}
+    {#t #f #t #f #f #f}
+    {#t #f #t #f #f #t}
+    {#t #f #t #f #t #f}
+    {#t #f #t #t #t #t}
+    {#t #t #f #f #f #f}
+    {#t #t #f #f #f #t}
+    {#t #t #f #t #t #f}
+    {#t #t #f #t #t #t}
+    {#t #t #t #f #f #f}
+    {#t #t #t #t #f #t}
+    {#t #t #t #t #t #f}
+    {#t #t #t #t #t #t}
+  }
+)
+
+(define $l4
+  {
+    {#f #f #t #t #t #t}
+    {#f #t #f #t #t #f}
+    {#f #t #f #t #t #t}
+    {#f #t #t #t #f #t}
+    {#f #t #t #t #t #f}
+    {#f #t #t #t #t #t}
+    {#t #f #f #t #f #f}
+    {#t #f #f #t #f #t}
+    {#t #f #f #t #t #f}
+    {#t #f #f #t #t #t}
+    {#t #f #t #f #t #t}
+    {#t #f #t #t #f #f}
+    {#t #f #t #t #f #t}
+    {#t #f #t #t #t #f}
+    {#t #f #t #t #t #t}
+    {#t #t #f #f #t #f}
+    {#t #t #f #f #t #t}
+    {#t #t #f #t #f #f}
+    {#t #t #f #t #f #t}
+    {#t #t #f #t #t #f}
+    {#t #t #f #t #t #t}
+    {#t #t #t #f #f #t}
+    {#t #t #t #f #t #f}
+    {#t #t #t #f #t #t}
+    {#t #t #t #t #f #f}
+    {#t #t #t #t #f #t}
+    {#t #t #t #t #t #f}
+    {#t #t #t #t #t #t}
+  }
+)
+
+(define $l5
+  {
+    {#f #f #f #f #f #f #f #t}
+    {#f #f #f #f #f #f #t #t}
+    {#f #f #f #f #f #t #f #t}
+    {#f #f #f #f #f #t #t #t}
+    {#f #f #f #f #t #f #f #t}
+    {#f #f #f #f #t #f #t #t}
+    {#f #f #f #f #t #t #f #t}
+    {#f #f #f #f #t #t #t #t}
+    {#f #f #f #t #f #f #f #f}
+    {#f #f #f #t #f #f #t #f}
+    {#f #f #f #t #f #t #f #f}
+    {#f #f #f #t #f #t #t #f}
+    {#f #f #f #t #t #f #f #f}
+    {#f #f #f #t #t #f #t #f}
+    {#f #f #f #t #t #t #f #f}
+    {#f #f #f #t #t #t #t #f}
+    {#f #f #t #f #f #f #f #t}
+    {#f #f #t #f #f #f #t #t}
+    {#f #f #t #f #f #t #f #t}
+    {#f #f #t #f #f #t #t #t}
+    {#f #f #t #f #t #f #f #t}
+    {#f #f #t #f #t #f #t #t}
+    {#f #f #t #f #t #t #f #t}
+    {#f #f #t #f #t #t #t #t}
+    {#f #f #t #t #f #f #f #f}
+    {#f #f #t #t #f #f #t #f}
+    {#f #f #t #t #f #t #f #f}
+    {#f #f #t #t #f #t #t #f}
+    {#f #f #t #t #t #f #f #f}
+    {#f #f #t #t #t #f #t #f}
+    {#f #f #t #t #t #t #f #f}
+    {#f #f #t #t #t #t #t #f}
+    {#f #t #f #f #f #f #f #t}
+    {#f #t #f #f #f #f #t #t}
+    {#f #t #f #f #f #t #f #t}
+    {#f #t #f #f #f #t #t #t}
+    {#f #t #f #f #t #f #f #t}
+    {#f #t #f #f #t #f #t #t}
+    {#f #t #f #f #t #t #f #t}
+    {#f #t #f #f #t #t #t #t}
+    {#f #t #f #t #f #f #f #f}
+    {#f #t #f #t #f #f #t #f}
+    {#f #t #f #t #f #t #f #f}
+    {#f #t #f #t #f #t #t #f}
+    {#f #t #f #t #t #f #f #f}
+    {#f #t #f #t #t #f #t #f}
+    {#f #t #f #t #t #t #f #f}
+    {#f #t #f #t #t #t #t #f}
+    {#f #t #t #f #f #f #f #t}
+    {#f #t #t #f #f #f #t #t}
+    {#f #t #t #f #f #t #f #t}
+    {#f #t #t #f #f #t #t #t}
+    {#f #t #t #f #t #f #f #t}
+    {#f #t #t #f #t #f #t #t}
+    {#f #t #t #f #t #t #f #t}
+    {#f #t #t #f #t #t #t #t}
+    {#f #t #t #t #f #f #f #f}
+    {#f #t #t #t #f #f #t #f}
+    {#f #t #t #t #f #t #f #f}
+    {#f #t #t #t #f #t #t #f}
+    {#f #t #t #t #t #f #f #f}
+    {#f #t #t #t #t #f #t #f}
+    {#f #t #t #t #t #t #f #f}
+    {#f #t #t #t #t #t #t #f}
+    {#t #f #f #f #f #f #f #t}
+    {#t #f #f #f #f #f #t #t}
+    {#t #f #f #f #f #t #f #t}
+    {#t #f #f #f #f #t #t #t}
+    {#t #f #f #f #t #f #f #t}
+    {#t #f #f #f #t #f #t #t}
+    {#t #f #f #f #t #t #f #t}
+    {#t #f #f #f #t #t #t #t}
+    {#t #f #f #t #f #f #f #f}
+    {#t #f #f #t #f #f #t #f}
+    {#t #f #f #t #f #t #f #f}
+    {#t #f #f #t #f #t #t #f}
+    {#t #f #f #t #t #f #f #f}
+    {#t #f #f #t #t #f #t #f}
+    {#t #f #f #t #t #t #f #f}
+    {#t #f #f #t #t #t #t #f}
+    {#t #f #t #f #f #f #f #t}
+    {#t #f #t #f #f #f #t #t}
+    {#t #f #t #f #f #t #f #t}
+    {#t #f #t #f #f #t #t #t}
+    {#t #f #t #f #t #f #f #t}
+    {#t #f #t #f #t #f #t #t}
+    {#t #f #t #f #t #t #f #t}
+    {#t #f #t #f #t #t #t #t}
+    {#t #f #t #t #f #f #f #f}
+    {#t #f #t #t #f #f #t #f}
+    {#t #f #t #t #f #t #f #f}
+    {#t #f #t #t #f #t #t #f}
+    {#t #f #t #t #t #f #f #f}
+    {#t #f #t #t #t #f #t #f}
+    {#t #f #t #t #t #t #f #f}
+    {#t #f #t #t #t #t #t #f}
+    {#t #t #f #f #f #f #f #t}
+    {#t #t #f #f #f #f #t #t}
+    {#t #t #f #f #f #t #f #t}
+    {#t #t #f #f #f #t #t #t}
+    {#t #t #f #f #t #f #f #t}
+    {#t #t #f #f #t #f #t #t}
+    {#t #t #f #f #t #t #f #t}
+    {#t #t #f #f #t #t #t #t}
+    {#t #t #f #t #f #f #f #f}
+    {#t #t #f #t #f #f #t #f}
+    {#t #t #f #t #f #t #f #f}
+    {#t #t #f #t #f #t #t #f}
+    {#t #t #f #t #t #f #f #f}
+    {#t #t #f #t #t #f #t #f}
+    {#t #t #f #t #t #t #f #f}
+    {#t #t #f #t #t #t #t #f}
+    {#t #t #t #f #f #f #f #t}
+    {#t #t #t #f #f #f #t #t}
+    {#t #t #t #f #f #t #f #t}
+    {#t #t #t #f #f #t #t #t}
+    {#t #t #t #f #t #f #f #t}
+    {#t #t #t #f #t #f #t #t}
+    {#t #t #t #f #t #t #f #t}
+    {#t #t #t #f #t #t #t #t}
+    {#t #t #t #t #f #f #f #f}
+    {#t #t #t #t #f #f #t #f}
+    {#t #t #t #t #f #t #f #f}
+    {#t #t #t #t #f #t #t #f}
+    {#t #t #t #t #t #f #f #f}
+    {#t #t #t #t #t #f #t #f}
+    {#t #t #t #t #t #t #f #f}
+    {#t #t #t #t #t #t #t #f}
+  }
+)
+
+(define $l6
+  {
+    {#f #f #f #f #t #f #f #f}
+    {#f #f #f #f #t #f #f #t}
+    {#f #f #f #f #t #f #t #f}
+    {#f #f #f #f #t #f #t #t}
+    {#f #f #f #f #t #t #f #f}
+    {#f #f #f #f #t #t #f #t}
+    {#f #f #f #f #t #t #t #f}
+    {#f #f #f #f #t #t #t #t}
+    {#f #f #f #t #f #t #t #t}
+    {#f #f #f #t #t #f #f #f}
+    {#f #f #f #t #t #f #f #t}
+    {#f #f #f #t #t #f #t #f}
+    {#f #f #f #t #t #f #t #t}
+    {#f #f #f #t #t #t #f #f}
+    {#f #f #f #t #t #t #f #t}
+    {#f #f #f #t #t #t #t #f}
+    {#f #f #t #f #f #t #t #f}
+    {#f #f #t #f #f #t #t #t}
+    {#f #f #t #f #t #f #f #f}
+    {#f #f #t #f #t #f #f #t}
+    {#f #f #t #f #t #f #t #f}
+    {#f #f #t #f #t #f #t #t}
+    {#f #f #t #f #t #t #f #f}
+    {#f #f #t #f #t #t #f #t}
+    {#f #f #t #t #f #t #f #t}
+    {#f #f #t #t #f #t #t #f}
+    {#f #f #t #t #f #t #t #t}
+    {#f #f #t #t #t #f #f #f}
+    {#f #f #t #t #t #f #f #t}
+    {#f #f #t #t #t #f #t #f}
+    {#f #f #t #t #t #f #t #t}
+    {#f #f #t #t #t #t #f #f}
+    {#f #t #f #f #f #t #f #f}
+    {#f #t #f #f #f #t #f #t}
+    {#f #t #f #f #f #t #t #f}
+    {#f #t #f #f #f #t #t #t}
+    {#f #t #f #f #t #f #f #f}
+    {#f #t #f #f #t #f #f #t}
+    {#f #t #f #f #t #f #t #f}
+    {#f #t #f #f #t #f #t #t}
+    {#f #t #f #t #f #f #t #t}
+    {#f #t #f #t #f #t #f #f}
+    {#f #t #f #t #f #t #f #t}
+    {#f #t #f #t #f #t #t #f}
+    {#f #t #f #t #f #t #t #t}
+    {#f #t #f #t #t #f #f #f}
+    {#f #t #f #t #t #f #f #t}
+    {#f #t #f #t #t #f #t #f}
+    {#f #t #t #f #f #f #t #f}
+    {#f #t #t #f #f #f #t #t}
+    {#f #t #t #f #f #t #f #f}
+    {#f #t #t #f #f #t #f #t}
+    {#f #t #t #f #f #t #t #f}
+    {#f #t #t #f #f #t #t #t}
+    {#f #t #t #f #t #f #f #f}
+    {#f #t #t #f #t #f #f #t}
+    {#f #t #t #t #f #f #f #t}
+    {#f #t #t #t #f #f #t #f}
+    {#f #t #t #t #f #f #t #t}
+    {#f #t #t #t #f #t #f #f}
+    {#f #t #t #t #f #t #f #t}
+    {#f #t #t #t #f #t #t #f}
+    {#f #t #t #t #f #t #t #t}
+    {#f #t #t #t #t #f #f #f}
+    {#t #f #f #f #f #f #f #f}
+    {#t #f #f #f #f #f #f #t}
+    {#t #f #f #f #f #f #t #f}
+    {#t #f #f #f #f #f #t #t}
+    {#t #f #f #f #f #t #f #f}
+    {#t #f #f #f #f #t #f #t}
+    {#t #f #f #f #f #t #t #f}
+    {#t #f #f #f #f #t #t #t}
+    {#t #f #f #t #f #f #f #f}
+    {#t #f #f #t #f #f #f #t}
+    {#t #f #f #t #f #f #t #f}
+    {#t #f #f #t #f #f #t #t}
+    {#t #f #f #t #f #t #f #f}
+    {#t #f #f #t #f #t #f #t}
+    {#t #f #f #t #f #t #t #f}
+    {#t #f #f #t #t #t #t #t}
+    {#t #f #t #f #f #f #f #f}
+    {#t #f #t #f #f #f #f #t}
+    {#t #f #t #f #f #f #t #f}
+    {#t #f #t #f #f #f #t #t}
+    {#t #f #t #f #f #t #f #f}
+    {#t #f #t #f #f #t #f #t}
+    {#t #f #t #f #t #t #t #f}
+    {#t #f #t #f #t #t #t #t}
+    {#t #f #t #t #f #f #f #f}
+    {#t #f #t #t #f #f #f #t}
+    {#t #f #t #t #f #f #t #f}
+    {#t #f #t #t #f #f #t #t}
+    {#t #f #t #t #f #t #f #f}
+    {#t #f #t #t #t #t #f #t}
+    {#t #f #t #t #t #t #t #f}
+    {#t #f #t #t #t #t #t #t}
+    {#t #t #f #f #f #f #f #f}
+    {#t #t #f #f #f #f #f #t}
+    {#t #t #f #f #f #f #t #f}
+    {#t #t #f #f #f #f #t #t}
+    {#t #t #f #f #t #t #f #f}
+    {#t #t #f #f #t #t #f #t}
+    {#t #t #f #f #t #t #t #f}
+    {#t #t #f #f #t #t #t #t}
+    {#t #t #f #t #f #f #f #f}
+    {#t #t #f #t #f #f #f #t}
+    {#t #t #f #t #f #f #t #f}
+    {#t #t #f #t #t #f #t #t}
+    {#t #t #f #t #t #t #f #f}
+    {#t #t #f #t #t #t #f #t}
+    {#t #t #f #t #t #t #t #f}
+    {#t #t #f #t #t #t #t #t}
+    {#t #t #t #f #f #f #f #f}
+    {#t #t #t #f #f #f #f #t}
+    {#t #t #t #f #t #f #t #f}
+    {#t #t #t #f #t #f #t #t}
+    {#t #t #t #f #t #t #f #f}
+    {#t #t #t #f #t #t #f #t}
+    {#t #t #t #f #t #t #t #f}
+    {#t #t #t #f #t #t #t #t}
+    {#t #t #t #t #f #f #f #f}
+    {#t #t #t #t #t #f #f #t}
+    {#t #t #t #t #t #f #t #f}
+    {#t #t #t #t #t #f #t #t}
+    {#t #t #t #t #t #t #f #f}
+    {#t #t #t #t #t #t #f #t}
+    {#t #t #t #t #t #t #t #f}
+    {#t #t #t #t #t #t #t #t}
+  }
+)
