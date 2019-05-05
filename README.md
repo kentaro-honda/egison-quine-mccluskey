@@ -9,6 +9,9 @@ Egison Implementation of Quine-McCluskey method
   * `docs/`
     * `qm.pdf`
       Slides in Japanese (originally created for the 1st Egison Workshop)
+* `egison3/`
+  Egison3 implementation
+  * `src/`
 
 ## Requisites
 

@@ -1,0 +1,102 @@
+;; (match #t Bool+ {[,<D> 0] [_ 1]}) ;; 0
+;; (match <D> Bool+ {[,#t 0] [_ 1]}) ;; 1
+;; (match <D> Bool+ {[,<D> 0] [_ 1]}) ;; 0
+(define $Bool+
+  (matcher
+    {[,$val []
+      {[$tgt (if (or (eq? val <D>) (eq? val tgt)) {[]} {})]}]
+     [$ [something]
+      {[$tgt {tgt}]}]
+     }))
+
+;; (match #t Bool+/rev {[,<D> 0] [_ 1]}) ;; 1
+;; (match <D> Bool+/rev {[,#t 0] [_ 1]}) ;; 0
+;; (match <D> Bool+/rev {[,<D> 0] [_ 1]}) ;; 0
+(define $Bool+/rev
+  (matcher
+    {[,$val []
+      {[$tgt (if (or (eq? tgt <D>) (eq? val tgt)) {[]} {})]}]
+     [$ [something]
+      {[$tgt {tgt}]}]
+     }))
+
+;; (match {#t} (list Bool+) {[,{<D>} 0] [_ 1]}) ;; 1
+;; (match {#t} (list/m Bool+) {[,{<D>} 0] [_ 1]}) ;; 0
+(define $list/m
+  (lambda [$a]
+    (matcher
+      {[,$val []
+        {[$tgt (match [val tgt] [(list a) (list a)]
+                 {[[<nil> <nil>] {[]}]
+                  [[<cons $x $xs> <cons ,x $ys>]
+                   (match ys (list/m a) {[,xs {[]}] [_ {}]})]
+                  [_ {}]})]}]
+         [$ [something]
+          {[$tgt {tgt}]}]
+         })))
+
+(define $findPrimeImplicant
+  (lambda [$as]
+    (let {[$rs
+           (unique
+             (match-all as (multiset (list Bool+))
+               [<cons <join $xs <cons ,#f $zs>> <cons ,{@xs #t @zs} _>> {@xs <D> @zs}]))]}
+      (match rs (list something)
+		{[<nil> as]
+		 [_ {@(findPrimeImplicant rs) @(delete-collection as rs)}]}))))
+
+(define $delete-collection
+  (lambda [$xs $ys]
+    (match ys (list something)
+      {[<nil> xs]
+       [<cons $y $rs> (delete-collection (delete/m (list/m Bool+) y xs) rs)]})))
+
+(define $findMinimumCover
+  (lambda [$tSet $pSet $upper $uSet]
+    (match [tSet pSet] [(multiset (list Bool+)) (multiset (list/m Bool+/rev))]
+      {[(& [_ <join (& !(loop $i [2 upper] <cons _ ...> <cons _ _>) $xs) $ys>]
+           ![<cons $z _> <join !<cons ,z _> ,ys>])
+        (findMinimumCover tSet pSet (length xs) xs)]
+       [_ uSet]})))
+
+(define $findMinimization
+  (lambda [$tSet $pSet]
+    (match [tSet pSet] [(multiset (list something)) (multiset (list/m Bool+/rev))]
+      {[[<nil> _] {}]
+       [[<cons $x $xs> <cons (& ,x $y) (& !<cons ,x _> $zs)>]
+        {y @(findMinimization (delete/m (list/m Bool+) y xs) zs)}]
+       [_ (findMinimumCover tSet pSet (length pSet) pSet)]})))
+
+(define $QM
+  (lambda [$aSet]
+    (findMinimization aSet (findPrimeImplicant aSet))))
+
+(define $main
+  (lambda [$argv]
+    (match argv (list something)
+      {;; unchecked
+       [<cons $i <cons $o _>>
+        (do {[$p (open-input-file i)]
+             [$val (read-from-port p)]
+             [(close-input-port p)]
+             [$p (open-output-file o)]
+             [(write-to-port p (show (QM (read val))))]
+             [(close-output-port p)]})]
+       ;; unchecked
+       [<cons $i _>
+        (do {[$p (open-input-file i)]
+             [$val (read-from-port p)]
+             [(close-input-port p)]
+             [(write "output : ")]
+             [(flush)]
+             [(write (show (QM (read val))))]
+             [(write "\n")]
+             [(flush)]})]
+        [_
+         (do {[(write "input : ")]
+              [(flush)]
+              [$val (read-line)]
+              [(write "output : ")]
+              [(write (show (QM (read val))))]
+              [(write "\n")]
+              [(flush)]})]})))
